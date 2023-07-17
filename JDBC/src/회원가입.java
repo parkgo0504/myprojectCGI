@@ -34,6 +34,14 @@ public class 회원가입 {
 			
 			
 			
+			int row = psmt.executeUpdate();
+			if(row > 1) {
+				System.out.println("회원가입 성공");
+			}else {
+				System.out.println("회원가입 실패");
+			}
+			
+			
 			// 연결 종료
 			connection.close();
 
