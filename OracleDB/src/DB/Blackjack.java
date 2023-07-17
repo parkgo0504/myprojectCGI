@@ -11,8 +11,8 @@ public class Blackjack {
         List<String> deck = createDeck();
         
         // 딜러와 플레이어 카드 리스트 생성
-        List<String> dealerHand = new ArrayList<>();
-        List<String> playerHand = new ArrayList<>();
+        List<String> dealerHand = new ArrayList<>(); // 딜러
+        List<String> playerHand = new ArrayList<>(); // 플레이어
         
         // 게임 시작
         dealInitialCards(deck, dealerHand, playerHand);
