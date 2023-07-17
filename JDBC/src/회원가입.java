@@ -1,54 +1,65 @@
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class 회원가입 {
-	public static void main(String[] args) {
-		
-	
-		Connection connection = null;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-		try {
-			// JDBC 드라이버 로드
-			Class.forName("oracle.jdbc.driver.OracleDriver");
+        System.out.println("id: ");
+        String id = sc.next();
 
-			// 데이터베이스 연결 정보 설정
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
-			String username = "service";
-			String password = "12345";
+        System.out.println("pw: ");
+        String pw = sc.next();
 
-			// 데이터베이스 연결
-			connection = DriverManager.getConnection(url, username, password);
+        System.out.println("name: ");
+        String name = sc.next();
 
-			// 연결 성공 메시지 출력
-			System.out.println("Oracle 데이터베이스에 성공적으로 연결되었습니다.");
+        System.out.println("age: ");
+        int age = sc.nextInt();
 
-			
-			
-			
-			String sql = "INSERT INTO MEMBER VALUES('test','test','test')";
-			
-			PreparedStatement psmt = connection.prepareStatement(sql);
-			
-			
-			
-			int row = psmt.executeUpdate();
-			if(row > 1) {
-				System.out.println("회원가입 성공");
-			}else {
-				System.out.println("회원가입 실패");
-			}
-			
-			
-			// 연결 종료
-			connection.close();
+        Connection connection = null;
+        PreparedStatement psmt = null;
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+        try {
+            // Load the JDBC driver
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+
+            // Set database connection information
+            String url = "jdbc:oracle:thin:@localhost:1521:xe";
+            String username = "service";
+            String password = "12345";
+
+            // Establish database connection
+            connection = DriverManager.getConnection(url, username, password);
+
+            // Print connection success message
+            System.out.println("Successfully connected to Oracle database");
+
+            String sql = "INSERT INTO MEMBER VALUES(?, ?, ?, ?)";
+
+            psmt = connection.prepareStatement(sql);
+            psmt.setString(1, id);
+            psmt.setString(2, pw);
+            psmt.setString(3, name);
+            psmt.setInt(4, age);
+
+            int rowsAffected = psmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Registration successful");
+            } else {
+                System.out.println("Registration failed");
+            }
+
+            // Close the connection
+            connection.close();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
