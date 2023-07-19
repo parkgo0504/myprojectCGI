@@ -11,6 +11,18 @@ public class View {
 		System.out.println("3. 회원 정보 검색");
 		System.out.println("4. 회원 정보 수정");
 		System.out.println("5. 회원 탈퇴");
+		System.out.println("6. 로그인");
+		System.out.println("0. 종료");
+		System.out.print("메뉴 선택: ");
+	}
+	public static void showLoignMenu() {
+
+		System.out.println("1. 회원가입");
+		System.out.println("2. 전체 회원 조회");
+		System.out.println("3. 회원 정보 검색");
+		System.out.println("4. 회원 정보 수정");
+		System.out.println("5. 회원 탈퇴");
+		System.out.println("6. 로그인");
 		System.out.println("0. 종료");
 		System.out.print("메뉴 선택: ");
 	}
@@ -64,5 +76,19 @@ public class View {
 		System.out.print("탈퇴할 ID: ");
 		return sc.next();
 	}
+	
+	public static String getIoginId() {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("ID: ");
+		return sc.next();
+	}
+	
+	public static String getIoginPw() {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("PW: ");
+		return sc.next();
+	}
+
+	
 
 }

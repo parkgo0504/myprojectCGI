@@ -1,6 +1,7 @@
 package mvc;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 // Controller
 class Controller {
@@ -56,7 +57,32 @@ class Controller {
 		}
 	}
 
-	public void showAllMembers() {
+	public void login(String id, String pw) {
+
+		try {
+			String sql = "SELECT * FROM MEMBER WHERE ID = ? AND PW = ?";
+			psmt = connection.prepareStatement(sql);
+			psmt.setString(1, id);
+			psmt.setString(2, pw);
+
+			
+			ResultSet rs = psmt.executeQuery();
+			if (rs.next()) {
+				System.out.printf("%s 로그인 성공.\n", rs.getString("NAME"));
+			} else {
+				System.out.println("실패.");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeResources();
+		}
+
+	}
+
+	public ArrayList<Member> showAllMembers() {
+		ArrayList<Member> arr = new ArrayList<Member>();
 		try {
 			String sql = "SELECT * FROM MEMBER";
 			psmt = connection.prepareStatement(sql);
@@ -67,15 +93,17 @@ class Controller {
 				String id = rs.getString("ID");
 				String name = rs.getString("NAME");
 				int age = rs.getInt("AGE");
-
-				System.out.println(id + "\t" + name + "\t" + age);
+				Member member = new Member(id, "", name, age);
+				arr.add(member);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			closeResources();
 		}
+		return arr;
 	}
+
 
 	public void searchMember(String id) {
 		try {
@@ -152,5 +180,3 @@ class Controller {
 		}
 	}
 }
-
-
